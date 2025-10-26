@@ -1,0 +1,43 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="FinalH.MainWindow"
+        Title="FinalH">
+	
+	
+	<Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions=",">
+		<StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10">
+			<TextBlock VerticalAlignment="Center" Text="Difficulty:" Margin="0,0,6,0"/>
+			<ComboBox x:Name="DifficultyCombo" Width="120" SelectedIndex="1">
+				<ComboBoxItem Content="Easy"/>
+				<ComboBoxItem Content="Medium"/>
+				<ComboBoxItem Content="Hard"/>
+			</ComboBox>
+			<Button Content="Start Game" Click="StartGame_Click" Margin="10,0,0,0"/>
+			<Button Content="Restart" Click="Restart_Click" Margin="10,0,0,0"/>
+		</StackPanel>
+        <TextBlock x:Name="LogoDisplay" Grid.Row="1" FontSize="40" HorizontalAlignment="Center" Margin="10"/>
+
+		<TextBlock x:Name="WordDisplay" Grid.Row="2" FontSize="20" HorizontalAlignment="Center" Margin="10"/>
+
+		<TextBlock x:Name="DefinitionDisplay" Grid.Row="3" FontSize="16" HorizontalAlignment="Center" Margin="10,0,10,10" 
+				   TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment = "Top" Foreground="#666666"/>
+
+		<StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Center" Margin="10">
+			<TextBlock Text="Lives: " FontSize="18" VerticalAlignment="Center"/>
+			<TextBlock x:Name="LivesDisplay" FontSize="18" Margin="6,0,0,0" VerticalAlignment="Center"/>
+			<TextBlock Text="    Missed: " FontSize="18" Margin="20,0,0,0" VerticalAlignment="Center"/>
+			<TextBlock x:Name="MissedDisplay" VerticalAlignment="Center"/>
+		</StackPanel>
+		
+		<StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center" Margin="1">
+			<TextBox x:Name="GuessTextBox" Width="60" MaxLength="1" HorizontalAlignment="Center"/>
+			<Button Content="Guess" Click="Guess_Click" Margin="5,0,0,0"/> 
+
+		<TextBlock x:Name="MessageText" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10" Foreground="Red"/>
+		</StackPanel>
+	</Grid>
+
+</Window>

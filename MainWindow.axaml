@@ -7,37 +7,80 @@
         Title="FinalH">
 	
 	
-	<Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions=",">
-		<StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10">
-			<TextBlock VerticalAlignment="Center" Text="Difficulty:" Margin="0,0,6,0"/>
-			<ComboBox x:Name="DifficultyCombo" Width="120" SelectedIndex="1">
-				<ComboBoxItem Content="Easy"/>
-				<ComboBoxItem Content="Medium"/>
-				<ComboBoxItem Content="Hard"/>
-			</ComboBox>
-			<Button Content="Start Game" Click="StartGame_Click" Margin="10,0,0,0"/>
-			<Button Content="Restart" Click="Restart_Click" Margin="10,0,0,0"/>
-		</StackPanel>
-        <TextBlock x:Name="LogoDisplay" Grid.Row="1" FontSize="40" HorizontalAlignment="Center" Margin="10"/>
-
-		<TextBlock x:Name="WordDisplay" Grid.Row="2" FontSize="20" HorizontalAlignment="Center" Margin="10"/>
-
-		<TextBlock x:Name="DefinitionDisplay" Grid.Row="3" FontSize="16" HorizontalAlignment="Center" Margin="10,0,10,10" 
-				   TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment = "Top" Foreground="#666666"/>
-
-		<StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Center" Margin="10">
-			<TextBlock Text="Lives: " FontSize="18" VerticalAlignment="Center"/>
-			<TextBlock x:Name="LivesDisplay" FontSize="18" Margin="6,0,0,0" VerticalAlignment="Center"/>
-			<TextBlock Text="    Missed: " FontSize="18" Margin="20,0,0,0" VerticalAlignment="Center"/>
-			<TextBlock x:Name="MissedDisplay" VerticalAlignment="Center"/>
-		</StackPanel>
-		
-		<StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center" Margin="1">
-			<TextBox x:Name="GuessTextBox" Width="60" MaxLength="1" HorizontalAlignment="Center"/>
-			<Button Content="Guess" Click="Guess_Click" Margin="5,0,0,0"/> 
-
-		<TextBlock x:Name="MessageText" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10" Foreground="Red"/>
-		</StackPanel>
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto,*">
+        <StackPanel Grid.Column="1" Orientation="Horizontal" Grid.Row="0" Margin="10">
+            <TextBlock VerticalAlignment="Center" Text="Difficulty:" Margin="0,0,6,0"/>
+            <ComboBox x:Name="DifficultyCombo" Width="120" SelectedIndex="1">
+                <ComboBoxItem Content="Easy"/>
+                <ComboBoxItem Content="Medium"/>
+                <ComboBoxItem Content="Hard"/>
+            </ComboBox>
+            <Button Content="Start Game" Click="StartGame_Click" Margin="10,0,0,0"/>
+            <Button Content="Restart" Click="Restart_Click" Margin="10,0,0,0"/>
+        </StackPanel>
+        
+        <!-- Hangman Visual -->
+        <Canvas x:Name="HangmanCanvas" Grid.Column="0" Grid.Row="1" Grid.RowSpan="4" 
+                Width="200" Height="250" HorizontalAlignment="Right" Margin="10">
+            <!-- Gallows -->
+            <Line StartPoint="40,220" EndPoint="160,220" Stroke="Black" StrokeThickness="3"/>
+            <Line StartPoint="100,220" EndPoint="100,40" Stroke="Black" StrokeThickness="3"/>
+            <Line StartPoint="100,40" EndPoint="140,40" Stroke="Black" StrokeThickness="3"/>
+            <Line StartPoint="140,40" EndPoint="140,60" Stroke="Black" StrokeThickness="3"/>
+            
+            <!-- Head -->
+            <Ellipse x:Name="Head" Canvas.Left="125" Canvas.Top="60" Width="30" Height="30" 
+                     Stroke="White" StrokeThickness="2"/>
+            
+            <!-- Body -->
+            <Line x:Name="Body" StartPoint="140,90" EndPoint="140,150" 
+                  Stroke="White" StrokeThickness="2"/>
+            
+            <!-- Left Arm -->
+            <Line x:Name="LeftArm" StartPoint="140,100" EndPoint="110,130" 
+                  Stroke="White" StrokeThickness="2"/>
+            
+            <!-- Right Arm -->
+            <Line x:Name="RightArm" StartPoint="140,100" EndPoint="170,130" 
+                  Stroke="White" StrokeThickness="2"/>
+            
+            <!-- Left Leg -->
+            <Line x:Name="LeftLeg" StartPoint="140,150" EndPoint="110,180" 
+                  Stroke="White" StrokeThickness="2"/>
+            
+            <!-- Right Leg -->
+            <Line x:Name="RightLeg" StartPoint="140,150" EndPoint="170,180" 
+                  Stroke="White" StrokeThickness="2"/>
+            
+            <!-- Face Features -->
+            <Ellipse x:Name="LeftEye" Canvas.Left="132" Canvas.Top="70" Width="4" Height="4" 
+                     Fill="White"/>
+            <Ellipse x:Name="RightEye" Canvas.Left="144" Canvas.Top="70" Width="4" Height="4" 
+                     Fill="White"/>
+            <Path x:Name="Smile" Data="M 134,80 Q 140,85 146,80" Stroke="White" 
+                  StrokeThickness="2"/>
+        </Canvas>
+        <StackPanel Grid.Column="1" Grid.Row="1" Grid.RowSpan="4" Margin="10" Width="300">
+            <TextBlock x:Name="LogoDisplay" FontSize="40" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+            <TextBlock x:Name="WordDisplay" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+            <TextBlock x:Name="DefinitionDisplay" FontSize="16" HorizontalAlignment="Center" 
+                      TextWrapping="Wrap" TextAlignment="Center" Foreground="#666666" Margin="0,0,0,20"/>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+                <TextBlock Text="Lives:" FontSize="18" VerticalAlignment="Center"/>
+                <TextBlock x:Name="LivesDisplay" FontSize="18" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                <TextBlock Text="    Missed:" FontSize="18" Margin="20,0,0,0" VerticalAlignment="Center"/>
+                <TextBlock x:Name="MissedDisplay" FontSize="18" VerticalAlignment="Center"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+                <TextBox x:Name="GuessTextBox" Width="60" MaxLength="1" HorizontalAlignment="Center"/>
+                <Button Content="Guess" Click="Guess_Click" Margin="5,0,0,0"/>
+            </StackPanel>
+            
+            <TextBlock x:Name="MessageText" HorizontalAlignment="Center" 
+                      TextWrapping="Wrap" TextAlignment="Center" Foreground="Red"/>
+        </StackPanel>
 	</Grid>
 
 </Window>
